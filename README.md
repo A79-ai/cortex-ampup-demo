@@ -34,14 +34,6 @@ part2/  the cross-system demo: Snowflake + AmpUp via coco
                                        with the Revela CRM/transcript data
                                        (filesystem-shape AmpUp side), produces
                                        per-deal NBA briefs
-        - seed_webinardemo.py          seeds the credits-surge upsell demo
-                                       into an AmpUp staging org via the
-                                       sales-agents REST API. Creates 3 accounts
-                                       (Telemetra Labs, Helios Motors,
-                                       Brightfield Media), one meeting each,
-                                       and a meeting analysis per archetype
-                                       (budget-sensitive, expansion-ready,
-                                       procurement-friendly)
         - captures/
             cross_system.jsonl         a real run of run_demo.py, the agent-
                                        loop transcript embedded in Part 2
@@ -100,6 +92,25 @@ The scripted demo joins:
   light featurization (objections, missed cues, next-step strength)
 
 into a single agent-loop trace ready for the blog body.
+
+## Connecting to the live `webinardemo` org via MCP
+
+The Part 2 customer accounts the blog references (Telemetra Labs, Helios Motors, Brightfield Media — each with one meeting and a structured analysis matching their archetype) are seeded into AmpUp's `webinardemo` staging org. You can query them directly from Cortex Code via the AmpUp MCP server — no local seeding required.
+
+```bash
+cortex mcp add ampup-webinardemo \
+  https://app.staging.a79dev.com/mcp \
+  -t http \
+  -H "Authorization=Bearer $AMPUP_API_KEY"
+```
+
+Get an `AMPUP_API_KEY` scoped to the `webinardemo` org by emailing [rahulb@ampup.ai](mailto:rahulb@ampup.ai). Once wired up, in `cortex -c coco` you can run prompts like:
+
+```
+> List my open opportunities, then for each one read the most recent meeting analysis and draft an upsell brief.
+```
+
+Coco will fan out across `list_opportunities`, `get_meeting`, and `email_draft` against the live AmpUp tenant, joined with whatever Snowflake-side product analytics you've loaded (see `part2/load_py.py`).
 
 ## Caveats
 
