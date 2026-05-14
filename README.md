@@ -34,8 +34,16 @@ part2/  the cross-system demo: Snowflake + AmpUp via coco
                                        with the Revela CRM/transcript data
                                        (filesystem-shape AmpUp side), produces
                                        per-deal NBA briefs
+        - seed_webinardemo.py          seeds the credits-surge upsell demo
+                                       into an AmpUp staging org via the
+                                       sales-agents REST API. Creates 3 accounts
+                                       (Telemetra Labs, Helios Motors,
+                                       Brightfield Media), one meeting each,
+                                       and a meeting analysis per archetype
+                                       (budget-sensitive, expansion-ready,
+                                       procurement-friendly)
         - captures/
-            cross_system.jsonl         a real run of run_demo.py — the agent-
+            cross_system.jsonl         a real run of run_demo.py, the agent-
                                        loop transcript embedded in Part 2
 ```
 
