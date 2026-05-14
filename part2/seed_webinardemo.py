@@ -168,6 +168,8 @@ def get_or_create_account(seed: Seed) -> str:
         params={"limit": 20, "search": seed.name},
         timeout=15,
     )
+    if r.status_code != 200:
+        print(f"  DEBUG url={r.request.url} status={r.status_code} body={r.text[:400]}")
     r.raise_for_status()
     items = r.json() if isinstance(r.json(), list) else r.json().get("items", [])
     for a in items:
@@ -177,9 +179,15 @@ def get_or_create_account(seed: Seed) -> str:
     r = requests.post(
         f"{API}/accounts",
         headers=HDRS,
-        json={"name": seed.name, "industry": seed.industry},
+        json={
+            "name": seed.name,
+            "industry": seed.industry,
+            "owner_id": "unassigned",
+        },
         timeout=15,
     )
+    if r.status_code != 200:
+        print(f"  account create failed: {r.status_code} {r.text[:200]}")
     r.raise_for_status()
     return r.json()["id"]
 
@@ -194,28 +202,42 @@ def create_meeting(seed: Seed, account_id: str) -> str:
             "account_id": account_id,
             "scheduled_at": scheduled_at,
             "status": "analyzed",
-            "source": "seed_script",
+            "source": "demo",
         },
         timeout=15,
     )
+    if r.status_code != 200:
+        print(f"  meeting create failed: {r.status_code} {r.text[:200]}")
     r.raise_for_status()
     return r.json()["id"]
 
 
 def attach_analysis(seed: Seed, meeting_id: str) -> None:
+    """Attach the analysis via PATCH on the meeting.
+
+    The sales-agents API stores ad-hoc per-meeting state in
+    ``extra_metadata`` and the prose summary in ``transcript``. Both are
+    populated here so that a downstream agent (cortex / the AmpUp UI)
+    can find the demo content.
+    """
     payload = {
-        "summary": seed.transcript_summary,
-        "archetype": seed.archetype,
-        "objections": seed.objections,
-        "next_step_signals": seed.next_step_signals,
-        "upsell_recommendation": seed.upsell_recommendation,
+        "transcript": seed.transcript_summary,
+        "extra_metadata": {
+            "demo": True,
+            "archetype": seed.archetype,
+            "objections": seed.objections,
+            "next_step_signals": seed.next_step_signals,
+            "upsell_recommendation": seed.upsell_recommendation,
+        },
     }
-    r = requests.post(
-        f"{API}/meetings/{meeting_id}/analysis",
+    r = requests.patch(
+        f"{API}/meetings/{meeting_id}",
         headers=HDRS,
         json=payload,
         timeout=30,
     )
+    if r.status_code != 200:
+        print(f"  meeting patch failed: {r.status_code} {r.text[:200]}")
     r.raise_for_status()
 
 
