@@ -13,9 +13,10 @@ action layer.
 
 Paste verbatim:
 
-> I'm an Ampup AE. My open pipeline includes deals with Rivian,
-> Intuit, Uber, VIAVI Solutions, and Garmin. I want to walk into my
-> next call with each of these prepared.
+> I'm an Ampup AE. My open pipeline includes deals with Solstice
+> Motors, Threadworks, Ridepoint, Lumagate Networks, and Avionix
+> Aviation. I want to walk into my next call with each of these
+> prepared.
 >
 > Run a SELECT on `AMPUP_DEMO.AMPUP.pipeline_with_earnings` to get
 > the top 5 deals by amount, along with the most recent earnings call
@@ -50,7 +51,7 @@ Total time including network round-trips: **~45–60s.**
 | 0:20 | "I've connected coco to a Snowflake account where I installed the free Public Data product from your Marketplace — 247,000 earnings call transcripts, plus 2.9M companies." | `SHOW SHARES` or schema briefly |
 | 0:40 | "Here's an AE's question I want to answer: *I'm walking into 5 deals next week. What did each of these public companies just tell Wall Street about their priorities?*" | Paste the prompt |
 | 1:00 | (Coco runs SELECT) "That's a join in Snowflake — my CRM cross product with the public earnings dataset. The agent gets back 5 rows with embedded transcripts." | SQL result table |
-| 1:30 | (Coco reasons over transcripts) "Now coco's reading the unstructured text — what did Rivian's CEO say at AI and Autonomy Day? What did Intuit's CFO say at the AGM? — and pulling out a sales angle." | Reasoning streams |
+| 1:30 | (Coco reasons over transcripts) "Now coco's reading the unstructured text — what did Solstice Motors' CEO say at AI and Autonomy Day? What did Threadworks' CFO say at the AGM? — and pulling out a sales angle." | Reasoning streams |
 | 2:30 | (Coco calls MCP) "Ampup's MCP server has 147 tools. Coco picks `propose_email_draft` and drafts a personalized Slack for each AE." | MCP tool calls |
 | 3:00 | "Five briefings, ready to send. The whole loop — analytic question, unstructured-data reasoning, sales action — runs through Cortex Code on Snowflake." | Drafts on screen |
 | 3:30 | (Optional close) "What's interesting to us: Snowflake stops being just storage. With Cortex Code as the agent and MCP as the action layer, the warehouse becomes the substrate for any business workflow." | — |

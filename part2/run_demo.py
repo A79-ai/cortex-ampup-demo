@@ -172,7 +172,7 @@ def extract_missed_cues_and_objections(transcript: str) -> dict[str, Any]:
     OBJ_PATTERNS = [
         ("security", r"(security|SOC ?2|GDPR|compliance|legal review|data residency)"),
         ("price", r"(price|pricing|cost|budget|expensive)"),
-        ("competitor", r"(Clari|Gong|Outreach|Salesloft|Salesforce|HubSpot)"),
+        ("competitor", r"(competitor|alternative|incumbent|other vendor)"),
         ("integration", r"(integrat|legacy|ERP|API)"),
     ]
     for line in lines:

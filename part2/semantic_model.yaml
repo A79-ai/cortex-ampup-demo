@@ -21,7 +21,7 @@ tables:
 
     dimensions:
       - name: account_id
-        synonyms: [hubspot id, salesforce id, customer id]
+        synonyms: [crm id, customer id]
         expr: account_id
         data_type: TEXT
         description: Stable account identifier; joins to AmpUp account_id.

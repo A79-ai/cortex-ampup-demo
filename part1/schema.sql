@@ -58,9 +58,12 @@ CREATE OR REPLACE TABLE opportunities (
 --
 -- We can't reliably name-match account names to COMPANY_INDEX
 -- because COMPANY_INDEX has 2.9M companies including LLCs/funds with
--- similar names ("Uber" matches an insurance fund, not the rideshare).
--- So we map our 5 confirmed public-company prospects directly.
--- For real production this would be a CRM-side enrichment field.
+-- similar names (one common short name matches an insurance fund
+-- instead of the operating company). So we map our 5 demo public-
+-- company prospects directly. For real production this would be a
+-- CRM-side enrichment field. Names below are fictional placeholders
+-- matching the blog write-up; swap in your own real account names
+-- and tickers before running.
 -- ─────────────────────────────────────────────────────────────────
 CREATE OR REPLACE TABLE account_ticker_overrides (
     account_name STRING NOT NULL PRIMARY KEY,
@@ -68,11 +71,11 @@ CREATE OR REPLACE TABLE account_ticker_overrides (
 );
 
 INSERT INTO account_ticker_overrides VALUES
-    ('Rivian',          'RIVN'),
-    ('Intuit',          'INTU'),
-    ('Uber',            'UBER'),
-    ('VIAVI Solutions', 'VIAV'),
-    ('Garmin Aviation', 'GRMN');
+    ('Solstice Motors',   'SLST'),
+    ('Threadworks',       'TWRX'),
+    ('Ridepoint',         'RDPT'),
+    ('Lumagate Networks', 'LMGT'),
+    ('Avionix Aviation',  'AVXC');
 
 -- ─────────────────────────────────────────────────────────────────
 -- The headline view. For each open opportunity whose account maps
