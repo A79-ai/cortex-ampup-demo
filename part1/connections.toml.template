@@ -1,0 +1,26 @@
+# Template — copy to ~/.snowflake/connections.toml (or merge with existing).
+#
+# Required fields for a trial / free-tier Snowflake:
+#   account  = <prefix>.<region>     e.g. ab12345.us-east-1
+#   user     = your email/login
+#   password = your password
+#
+# Optional but recommended for a demo:
+#   warehouse = COMPUTE_WH           (default WH; trials get one)
+#   role      = ACCOUNTADMIN         (so coco can create DB / schema)
+#   database  = AMPUP_DEMO           (so coco lands in the right DB)
+#   schema    = CRM
+#
+# After saving, sanity-check:
+#   uv run --with snowflake-connector-python python -c \
+#     "import snowflake.connector as s; c=s.connect(connection_name='coco'); \
+#      print(c.cursor().execute('select current_account(), current_warehouse()').fetchone())"
+
+[connections.coco]
+account = "REPLACE_ME"
+user = "REPLACE_ME"
+password = "REPLACE_ME"
+warehouse = "COMPUTE_WH"
+role = "ACCOUNTADMIN"
+database = "AMPUP_DEMO"
+schema = "CRM"

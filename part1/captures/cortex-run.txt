@@ -1,0 +1,33 @@
+Let me get the full data for all 5 deals. I can see the first row (Rivian). Let me query to get the key fields and transcript excerpts for each deal.I can see the first 3 deals. Let me get the remaining 2 deals' transcripts.Now I have all 5 deals. Let me analyze the transcripts and create the email drafts. Here's my analysis:
+
+**Deal 1: Rivian ($365K)** - RIVN - Building in-house AI silicon (RAP1) for autonomous driving; Gen 3 platform launching late 2026 with 1,600 TOPS; point-to-point self-driving rolling out 2026.
+- Quote: "Starting in 2026, we'll begin rolling out point-to-point capabilities in which the vehicle can drive address to address."
+- Implication: Rivian is hiring/buying at scale for AI infrastructure; massive data pipeline needs.
+
+**Deal 2: Garmin Aviation ($262.5K)** - GRMN - Aviation segment grew 18% YoY; certified auto-land on King Air 350; raising aviation revenue growth to 10% for the year.
+- Quote: "We certified a retrofit integrated cockpit system for the Cessna Citation CJ-1, bringing new capabilities and safety-enhancing technologies."
+- Implication: Garmin is investing heavily in avionics certifications and OEM partnerships.
+
+**Deal 3: Uber ($185K)** - UBER - CFO transition (Prashanth → Balaji); positioned for accelerating growth; large and growing cash flows for strategic investment.
+- Quote: "An accelerating core business supported by huge and increasingly active consumer, earner, and merchant base, large and growing cash flows."
+- Implication: New CFO likely evaluating vendor relationships and investment priorities.
+
+**Deal 4: Intuit ($50K)** - INTU - Company nearly 4X'd from $5B to ~$20B; doubled growth rate to 16%; declared AI/data system of intelligence as core strategy 7 years ago; $300B TAM with only 6% penetration.
+- Quote: "We declared that data, AI, and human intelligence was going to be where we were going to put our capital allocation."
+- Implication: Intuit is consolidating tools for SMBs and sees "over-digitization" as the problem to solve.
+
+**Deal 5: VIAVI Solutions ($150K)** - VIAV - NSE revenue grew 46% YoY; data center ecosystem now 45% of mix; announced 5% workforce restructuring with $30M annual savings being reinvested in growth areas.
+- Quote: "Fiber networks are generally crap, and they need to be significantly improved... hyperscalers putting policing on their networks."
+- Implication: VIAVI is riding the AI data center build-out wave and reinvesting savings into growth.
+
+Now let me create the email drafts:**5 email drafts created successfully. No messages sent — all are in DRAFT state.**
+
+| # | Deal | Ticker | Amount | Task ID |
+|---|------|--------|--------|---------|
+| 1 | Rivian Services | RIVN | $365K | `d45fcf16-785c-47d9-98e0-51cca1e62e59` |
+| 2 | Garmin Aviation — AEA 2026 | GRMN | $262.5K | `2a46211f-4c78-47a9-9bab-51774ccb91b0` |
+| 3 | Uber - ThoughtSpot Analytics | UBER | $185K | `283cf492-01a6-45c6-a5f7-5761d9776cab` |
+| 4 | VIAVI Solutions — AEA 2026 | VIAV | $150K | `de634c6f-4208-4162-a622-dfcd9538d139` |
+| 5 | Intuit | INTU | $50K | `945e72e5-6531-4692-b5ac-04bf1a633d98` |
+
+**Summary: 5 drafts created, 0 sent.** Each draft references a specific earnings call quote, ties it to a sales angle, and poses a discovery question for the AE's next conversation.Done. **5 email drafts created, 0 messages sent.** Task IDs above are ready for review in AmpUp before you hit send.

@@ -1,0 +1,7 @@
+node_modules/
+__pycache__/
+.venv/
+*.csv
+revela_data/
+.DS_Store
+

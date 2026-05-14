@@ -1,0 +1,122 @@
+# Cortex Analyst semantic model for the cross-system demo.
+# Upload to a stage and register via Cortex Analyst's create/update API, or
+# point a Cortex Code session at this file directly.
+name: revela_product_analytics
+description: |
+  Daily product-usage telemetry for Revela's customers and active evaluations.
+  One row per (account, day). Use for adoption-trend questions, account-health
+  questions, and segment rollups. Sales-conversation context lives in a
+  separate system — call the AmpUp MCP for those.
+
+tables:
+  - name: account_feature_adoption_daily
+    description: Per-account, per-day product-usage rollup.
+    base_table:
+      database: REVELA_DEMO
+      schema: PRODUCT_ANALYTICS
+      table: ACCOUNT_FEATURE_ADOPTION_DAILY
+
+    primary_key:
+      columns: [account_id, event_date]
+
+    dimensions:
+      - name: account_id
+        synonyms: [hubspot id, salesforce id, customer id]
+        expr: account_id
+        data_type: TEXT
+        description: Stable account identifier; joins to AmpUp account_id.
+      - name: account_name
+        synonyms: [customer name, company]
+        expr: account_name
+        data_type: TEXT
+      - name: event_date
+        synonyms: [date, day]
+        expr: event_date
+        data_type: DATE
+
+    measures:
+      - name: active_users
+        synonyms: [DAU, daily active users]
+        expr: active_users
+        data_type: NUMBER
+        default_aggregation: AVG
+      - name: sessions
+        expr: sessions
+        data_type: NUMBER
+        default_aggregation: SUM
+      - name: feature_a_uses
+        synonyms: [forecast feature, primary feature]
+        expr: feature_a_uses
+        data_type: NUMBER
+        default_aggregation: SUM
+      - name: feature_b_uses
+        synonyms: [pipeline feature]
+        expr: feature_b_uses
+        data_type: NUMBER
+        default_aggregation: SUM
+      - name: feature_c_uses
+        synonyms: [coaching feature]
+        expr: feature_c_uses
+        data_type: NUMBER
+        default_aggregation: SUM
+      - name: evaluation_health_score
+        synonyms: [health, adoption score]
+        expr: evaluation_health_score
+        data_type: NUMBER
+        default_aggregation: AVG
+
+  - name: v_account_adoption_30d
+    description: |
+      One row per account with 30-day vs prior-30-day active-user comparison
+      and percent change. Use this for the canonical "which accounts dropped
+      X% in the last 30 days" question — Cortex Analyst should prefer this
+      over computing the window on the daily table.
+    base_table:
+      database: REVELA_DEMO
+      schema: PRODUCT_ANALYTICS
+      table: V_ACCOUNT_ADOPTION_30D
+
+    primary_key:
+      columns: [account_id]
+
+    dimensions:
+      - name: account_id
+        expr: account_id
+        data_type: TEXT
+      - name: account_name
+        expr: account_name
+        data_type: TEXT
+
+    measures:
+      - name: avg_active_users_last_30d
+        expr: avg_active_users_last_30d
+        data_type: NUMBER
+        default_aggregation: AVG
+      - name: avg_active_users_prior_30d
+        expr: avg_active_users_prior_30d
+        data_type: NUMBER
+        default_aggregation: AVG
+      - name: pct_change_30d
+        synonyms: [adoption change, usage drop, 30 day delta]
+        expr: pct_change_30d
+        data_type: NUMBER
+        default_aggregation: AVG
+      - name: health_score_last_30d
+        expr: health_score_last_30d
+        data_type: NUMBER
+        default_aggregation: AVG
+
+verified_queries:
+  - name: accounts_dropped_30pct_last_30d
+    question: Which accounts had product adoption drop more than 30% in the last 30 days?
+    sql: |
+      SELECT account_id, account_name, pct_change_30d
+      FROM REVELA_DEMO.PRODUCT_ANALYTICS.V_ACCOUNT_ADOPTION_30D
+      WHERE pct_change_30d < -30
+      ORDER BY pct_change_30d ASC;
+  - name: health_by_account_last_30d
+    question: What is the average adoption health score per account in the last 30 days?
+    sql: |
+      SELECT account_id, account_name, health_score_last_30d
+      FROM REVELA_DEMO.PRODUCT_ANALYTICS.V_ACCOUNT_ADOPTION_30D
+      ORDER BY health_score_last_30d ASC;
